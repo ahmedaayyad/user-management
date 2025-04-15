@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import UserCard from './UserCard';
 import '../styles.css';
 
-const UserList = ({ users, onViewProfile }) => {
+const UserList = ({ users, onViewProfile, onEdit, onDelete }) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('All Users');
 
@@ -42,7 +42,13 @@ const UserList = ({ users, onViewProfile }) => {
         <p className="UserList-noUsers">No users match the current filters.</p>
       ) : (
         filteredUsers.map((user) => (
-          <UserCard key={user.id} user={user} onViewProfile={onViewProfile} />
+          <UserCard
+            key={user.id}
+            user={user}
+            onViewProfile={onViewProfile}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
         ))
       )}
     </div>

@@ -18,7 +18,6 @@ const UserDashboard = () => {
     if (storedUsers) {
       setUsers(JSON.parse(storedUsers));
     } else {
-      // Default users with random avatars using DiceBear
       setUsers([
         {
           id: '1',
@@ -49,18 +48,16 @@ const UserDashboard = () => {
 
   const handleAddEditUser = (userData) => {
     if (editingUser) {
-      // Edit existing user
       setUsers(
         users.map((user) =>
           user.id === editingUser.id ? { ...user, ...userData } : user
         )
       );
     } else {
-      // Add new user with a random avatar
       const newUserId = Date.now().toString();
       const newUser = {
         id: newUserId,
-        avatar: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${newUserId}`,
+        avatar: userData.avatar || `https://api.dicebear.com/9.x/pixel-art/svg?seed=${newUserId}`,
         ...userData,
       };
       setUsers([...users, newUser]);
@@ -72,6 +69,7 @@ const UserDashboard = () => {
   const handleDeleteUser = (id) => {
     setUsers(users.filter((user) => user.id !== id));
     setDeleteConfirm(null);
+    setView('list');
   };
 
   const handleViewProfile = (user) => {
@@ -98,7 +96,12 @@ const UserDashboard = () => {
           >
             Add New User
           </button>
-          <UserList users={users} onViewProfile={handleViewProfile} />
+          <UserList
+            users={users}
+            onViewProfile={handleViewProfile}
+            onEdit={handleEditUser}
+            onDelete={(id) => setDeleteConfirm(id)}
+          />
         </>
       )}
       {view === 'form' && (

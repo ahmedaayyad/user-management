@@ -8,9 +8,11 @@ const UserForm = ({ initialData, onSubmit, onCancel }) => {
     email: '',
     role: 'User',
     isActive: false,
+    avatar: '',
     ...(initialData || {}),
   });
   const [errors, setErrors] = useState({});
+  const [preview, setPreview] = useState(formData.avatar || '');
 
   const validate = () => {
     const newErrors = {};
@@ -36,8 +38,36 @@ const UserForm = ({ initialData, onSubmit, onCancel }) => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({ ...prev, avatar: reader.result }));
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="UserForm-form">
+      <div className="UserForm-field">
+        <label>Profile Picture</label>
+        {preview && (
+          <img
+            src={preview}
+            alt="Profile Preview"
+            className="UserForm-avatar-preview"
+            style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '0.5rem' }}
+          />
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+      </div>
       <div className="UserForm-field">
         <label>Name</label>
         <input

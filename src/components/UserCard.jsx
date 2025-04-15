@@ -2,7 +2,7 @@
 import React from 'react';
 import '../styles.css';
 
-const UserCard = ({ user, onViewProfile }) => {
+const UserCard = ({ user, onViewProfile, onEdit, onDelete }) => {
   return (
     <div className="UserCard-card">
       <img src={user.avatar} alt={user.name} className="UserCard-avatar" />
@@ -14,9 +14,17 @@ const UserCard = ({ user, onViewProfile }) => {
           {user.isActive ? 'Active' : 'Inactive'}
         </span>
       </div>
-      <button onClick={() => onViewProfile(user)} className="UserCard-button">
-        View Profile
-      </button>
+      <div className="UserCard-actions">
+        <button onClick={() => onViewProfile(user)} className="UserCard-button UserCard-view">
+          View
+        </button>
+        <button onClick={() => onEdit(user)} className="UserCard-button UserCard-edit">
+          Edit
+        </button>
+        <button onClick={() => onDelete(user.id)} className="UserCard-button UserCard-delete">
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
