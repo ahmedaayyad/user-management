@@ -78,19 +78,46 @@ body {
   color: white;
 }
 
+.UserCard-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .UserCard-button {
-  padding: 0.6rem 1.2rem;
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
-  color: white;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  color: white;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.UserCard-button:hover {
+.UserCard-view {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+}
+
+.UserCard-view:hover {
   background: linear-gradient(90deg, #2563eb, #1d4ed8);
+}
+
+.UserCard-edit {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+.UserCard-edit:hover {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.UserCard-delete {
+  background: linear-gradient(90deg, #f87171, #ef4444);
+}
+
+.UserCard-delete:hover {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.UserCard-button:hover {
   transform: translateY(-2px);
 }
 
@@ -105,8 +132,13 @@ body {
     margin: 0 auto 1rem;
   }
 
-  .UserCard-button {
+  .UserCard-actions {
     width: 100%;
+    justify-content: center;
+  }
+
+  .UserCard-button {
+    flex: 1;
   }
 }
 
@@ -202,6 +234,12 @@ body {
 .UserForm-field select:focus {
   border-color: #3b82f6;
   outline: none;
+}
+
+.UserForm-avatar-preview {
+  display: block;
+  margin: 0 auto 0.5rem;
+  object-fit: cover;
 }
 
 .UserForm-error {
